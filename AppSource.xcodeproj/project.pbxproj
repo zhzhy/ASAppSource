@@ -14,7 +14,9 @@
 		1FCD81711B0B93E2001B217D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD81701B0B93E2001B217D /* Images.xcassets */; };
 		1FCD81741B0B93E2001B217D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCD81721B0B93E2001B217D /* LaunchScreen.xib */; };
 		1FCD81801B0B93E3001B217D /* AppSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD817F1B0B93E3001B217D /* AppSourceTests.m */; };
-		1FCD818C1B0B9506001B217D /* AppSourceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD818B1B0B9506001B217D /* AppSourceStore.m */; };
+		1FCD818C1B0B9506001B217D /* ASAppSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD818B1B0B9506001B217D /* ASAppSource.m */; };
+		1FCD818F1B0C3BDD001B217D /* ASAppMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD818E1B0C3BDD001B217D /* ASAppMetadata.m */; };
+		1FCD81921B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCD81911B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +43,12 @@
 		1FCD81791B0B93E3001B217D /* AppSourceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppSourceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCD817E1B0B93E3001B217D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCD817F1B0B93E3001B217D /* AppSourceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSourceTests.m; sourceTree = "<group>"; };
-		1FCD818A1B0B9506001B217D /* AppSourceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSourceStore.h; sourceTree = "<group>"; };
-		1FCD818B1B0B9506001B217D /* AppSourceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSourceStore.m; sourceTree = "<group>"; };
+		1FCD818A1B0B9506001B217D /* ASAppSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAppSource.h; sourceTree = "<group>"; };
+		1FCD818B1B0B9506001B217D /* ASAppSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAppSource.m; sourceTree = "<group>"; };
+		1FCD818D1B0C3BDD001B217D /* ASAppMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAppMetadata.h; sourceTree = "<group>"; };
+		1FCD818E1B0C3BDD001B217D /* ASAppMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAppMetadata.m; sourceTree = "<group>"; };
+		1FCD81901B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ASNSDictionaryFilter.h"; sourceTree = "<group>"; };
+		1FCD81911B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ASNSDictionaryFilter.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +132,12 @@
 		1FCD81891B0B943D001B217D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1FCD818A1B0B9506001B217D /* AppSourceStore.h */,
-				1FCD818B1B0B9506001B217D /* AppSourceStore.m */,
+				1FCD818A1B0B9506001B217D /* ASAppSource.h */,
+				1FCD818B1B0B9506001B217D /* ASAppSource.m */,
+				1FCD818D1B0C3BDD001B217D /* ASAppMetadata.h */,
+				1FCD818E1B0C3BDD001B217D /* ASAppMetadata.m */,
+				1FCD81901B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.h */,
+				1FCD81911B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -232,10 +242,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FCD818F1B0C3BDD001B217D /* ASAppMetadata.m in Sources */,
 				1FCD816C1B0B93E2001B217D /* ViewController.m in Sources */,
 				1FCD81691B0B93E2001B217D /* AppDelegate.m in Sources */,
-				1FCD818C1B0B9506001B217D /* AppSourceStore.m in Sources */,
+				1FCD818C1B0B9506001B217D /* ASAppSource.m in Sources */,
 				1FCD81661B0B93E2001B217D /* main.m in Sources */,
+				1FCD81921B0F1BFD001B217D /* NSDictionary+ASNSDictionaryFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +442,7 @@
 				1FCD81851B0B93E3001B217D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCD81861B0B93E3001B217D /* Build configuration list for PBXNativeTarget "AppSourceTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +451,7 @@
 				1FCD81881B0B93E3001B217D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
