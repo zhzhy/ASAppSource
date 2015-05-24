@@ -15,6 +15,7 @@
 @property (nonatomic, readwrite) NSString *AppMarket;
 @property (nonatomic, readwrite) NSString *AppIDName;
 @property (nonatomic, readwrite) NSString *TeamName;
+@property (nonatomic, readwrite) ASAppReleaseMode ReleaseMode;
 @property (nonatomic, readwrite) NSDictionary *descriptionInfo;
 
 @end

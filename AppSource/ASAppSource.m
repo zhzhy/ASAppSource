@@ -39,10 +39,22 @@
     return sharedAppSource;
 }
 
-- (NSDictionary *)iTunesMediaInfo {
+- (NSString *)iTunesMediaPath {
     NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"iTunesMetadata.plist"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        return [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        filePath = [[NSBundle mainBundle] pathForResource:@"iTunesMetadata" ofType:@"plist"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+            return nil;
+        }
+    }
+    
+    return filePath;
+}
+
+- (NSDictionary *)iTunesMediaInfo {
+    NSString *iTunesMediaPath = [self iTunesMediaPath];
+    if ([iTunesMediaPath length] > 0) {
+        return [NSDictionary dictionaryWithContentsOfFile:iTunesMediaPath];
     }
     
     return @{};
@@ -62,15 +74,38 @@
                 if ([plistString length] > 0) {
                     NSData *plistData = [plistString dataUsingEncoding:NSISOLatin1StringEncoding];
                     NSDictionary *provisionInfo = [NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListImmutable format:NULL error:NULL];
-                    if (provisionInfo != nil) {
-                        return provisionInfo;
-                    }
+                    return provisionInfo;
                 }
             }
         }
     }
     
-    return @{};
+    return nil;
+}
+
+- (ASAppReleaseMode)releaseMode:(NSDictionary *)mobileProvisionInfo {
+    ASAppReleaseMode releaseMode;
+    if (mobileProvisionInfo == nil) {
+        releaseMode = ASAppReleaseModeUnknow;
+    }else if ([mobileProvisionInfo count] == 0) {
+#ifdef TARGET_IPHONE_SIMULATOR
+        releaseMode = ASAppReleaseModeSimulator;
+#else
+        releaseMode = ASAppReleaseModeAppStore;
+#endif
+    }else if ([mobileProvisionInfo[@"ProvisionsAllDevices"] boolValue]) {
+        releaseMode = ASAppReleaseModeEnterprise;
+    }else if ([mobileProvisionInfo[@"ProvisionedDevices"] count] > 0) {
+        if ([mobileProvisionInfo[@"Entitlements"][@"get-task-allow"] boolValue]) {
+            releaseMode = ASAppReleaseModeDevelop;
+        }else {
+            releaseMode = ASAppReleaseModeAdHoc;
+        }
+    }else {
+        releaseMode = ASAppReleaseModeAppStore;
+    }
+    
+    return releaseMode;
 }
 
 - (NSDictionary *)filteriTunesMediaInfo {
@@ -92,8 +127,13 @@
 
 - (NSDictionary *)filterMobileProvisionInfo {
     NSDictionary *mobileProvisionInfo = [self mobileProvisionInfo];
+    ASAppReleaseMode releaseMode = [self releaseMode:mobileProvisionInfo];
     
-    return [mobileProvisionInfo AS_subDictionaryWithKeys:@[kAppMarket, kRedownload]];
+    NSDictionary *reducedProvisionInfo = [mobileProvisionInfo AS_subDictionaryWithKeys:@[kAppMarket, kRedownload]];
+    NSMutableDictionary *filterProvisionInfo = [NSMutableDictionary dictionaryWithDictionary:reducedProvisionInfo];
+    [filterProvisionInfo setObject:@(releaseMode) forKey:kReleaseMode];
+    
+    return filterProvisionInfo;
 }
 
 - (ASAppMetadata *)currentAppMetadata {
@@ -109,7 +149,5 @@
     
     return _currentAppMetadata;
 }
-
-
 
 @end

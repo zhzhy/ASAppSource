@@ -17,7 +17,12 @@
     
     NSArray *intersectedKeys = [originKeys allObjects];
     NSArray *replacingValues = [self objectsForKeys:intersectedKeys notFoundMarker:[NSNull null]];
-    return [NSDictionary dictionaryWithObjects:replacingValues forKeys:intersectedKeys];
+    
+    if (replacingValues != nil && intersectedKeys != nil) {
+        return [NSDictionary dictionaryWithObjects:replacingValues forKeys:intersectedKeys];
+    }
+    
+    return @{};
 }
 
 - (NSDictionary *)AS_replacOriginKey:(NSArray *)keys withReplacingKeys:(NSArray *)replacingKeys {
